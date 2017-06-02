@@ -13,7 +13,7 @@ let bubbleSort = (arr, comparer) => {
         // 对null和undefined做同等处理
         if (val1 == val2) return 0;
         // 如果其中有一个是null或undefined，则这一个排在后面
-        if ([val1, val2].some(val => val == null)) return (val1 && -1) || 1;
+        if (val1 == null || val2 == null) return (val1 && -1) || 1;
         // 如果其中有一个是数字，则全按字符串处理
         return ('' + val1).localeCompare('' + val2);
     },
@@ -64,6 +64,8 @@ export class ArrayEx extends Array {
     }
 
     toArrayEx() {
+        // 为避免对下次操作产生影响，清空比较器数组
+        this[__preComparers__] = [];
         return this;
     }
 }
